@@ -1,0 +1,17 @@
+#include "q2consumer.h"
+#include "q2mprng.h"
+void Consumer:: main(){
+	yield(mprng(d));
+
+	int num = b.remove();
+	while(num != sen){
+		sum = sum + num;
+		yield(mprng(d));
+		num = b.remove();
+	}
+}
+
+Consumer::Consumer(BoundedBuffer<int> &buffer, const int Delay, const int Sentinel, int &sum)
+	: b(buffer), d(Delay), sen(Sentinel), sum(sum){
+}
+

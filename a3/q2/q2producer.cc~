@@ -1,0 +1,12 @@
+#include "q2producer.h"
+#include "q2mprng.h"
+void Producer::main(){
+	for(int i=1; i<=p; i++){
+		yield(mprng(d));
+		b.insert(i);
+	}
+}
+
+Producer::Producer(BoundedBuffer<int> &buffer, const int Produce, const int Delay)
+	: b(buffer), p(Produce), d(Delay){	
+}

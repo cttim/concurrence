@@ -1,0 +1,194 @@
+#ifndef Q1_BOUNDEDBUFFER_H
+#define Q1_BOUNDEDBUFFER_H
+#include <uC++.h>
+#include <assert.h>
+#include <list>
+using namespace std;
+
+template<typename T> class BoundedBuffer {
+  public:
+    BoundedBuffer( const unsigned int size = 10 );
+    ~BoundedBuffer();
+    void insert( T elem );
+    T remove();
+private:
+	const unsigned int max;
+	unsigned int head;
+	unsigned int size;
+	T *buffer;
+	uOwnerLock lock;
+	uCondLock pro;
+	uCondLock cons;
+#ifdef NOBUSY
+	uCondLock barge;
+	bool bargeflag;
+#endif
+	bool full();
+
+	bool empty();
+
+	void add(T elem);
+
+	T out();
+
+
+};
+
+#ifdef BUSY
+template<typename T>
+BoundedBuffer<T>:: BoundedBuffer(const unsigned int size): max(size){
+	buffer = new T[size];
+	head = 0;
+	BoundedBuffer::size = 0;
+}
+
+template<typename T>
+void BoundedBuffer<T>::insert(T elem){
+	lock.acquire();
+	while(full()){
+		pro.wait(lock);
+	}
+	add(elem);
+	cons.signal();
+	lock.release();
+} 
+
+template<typename T>
+T BoundedBuffer<T>:: remove(){
+	lock.acquire();
+	while(empty()){
+		cons.wait(lock);
+	}
+	T result = out();
+	pro.signal();
+	lock.release();
+	return result;
+}
+#endif
+
+#ifdef NOBUSY
+template<typename T>
+BoundedBuffer<T>::BoundedBuffer(const unsigned int size):max(size){
+	buffer = new T[size];
+	head = 0;
+	BoundedBuffer::size = 0;
+	bargeflag = false;
+}
+
+template<typename T>
+void BoundedBuffer<T>:: insert(T elem){
+	lock.acquire();
+	if(bargeflag){
+		barge.wait(lock);
+	}
+
+	if(full()){
+		if(!barge.empty()){
+			barge.signal();
+		}
+		else{
+			bargeflag = false;
+		}
+		pro.wait(lock);
+	}
+
+	add(elem);
+
+	if(cons.empty()){
+		if(!barge.empty()){
+			barge.signal();
+		}
+		else{
+			bargeflag = false;
+		}
+	}
+	else{
+		bargeflag = true;
+		cons.signal();
+	}
+
+	lock.release();
+}
+
+template<typename T>
+T BoundedBuffer<T>:: remove(){
+	lock.acquire();
+	if(bargeflag){
+		barge.wait(lock);
+	}
+
+	if(empty()){
+		if(!barge.empty()){
+			barge.signal();
+		}
+		else{
+			bargeflag = false;
+		}
+		cons.wait(lock);
+	}
+
+	T result = out();
+
+	if(pro.empty()){
+		if(!barge.empty()){
+			barge.signal();
+		}
+		else{
+			bargeflag = false;
+		}
+	}
+	else{
+		bargeflag = true;
+		pro.signal();
+	}
+
+	lock.release();
+
+	return result;
+
+}
+
+#endif
+
+template<typename T>
+BoundedBuffer<T>:: ~BoundedBuffer(){
+	delete [] buffer;
+}
+
+template<typename T>
+bool BoundedBuffer<T>:: full(){
+	if(size == max){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+template<typename T>
+bool BoundedBuffer<T>:: empty(){
+	if(size == 0){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+template<typename T>
+void BoundedBuffer<T>::add(T elem){
+	assert(!full());
+	buffer[(head+size)%max] = elem;
+	size++;
+}
+
+template<typename T>
+T BoundedBuffer<T>::out(){
+	assert(!empty());
+	T tmp = buffer[head];
+	head = (head+1)%max;
+	size--;
+	return tmp;
+}
+
+#endif

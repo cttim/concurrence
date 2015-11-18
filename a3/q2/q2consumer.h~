@@ -1,0 +1,16 @@
+#ifndef Q2CONSUMER_H
+#define Q2CONSUMER_H
+#include <uC++.h>
+#include "q2boundedBuffer.h"
+_Task Consumer{
+	BoundedBuffer<int> &b;
+	const int d;
+	const int sen;
+	int &sum;
+
+	void main();
+
+public:
+	Consumer( BoundedBuffer<int> &buffer, const int Delay, const int Sentinel, int &sum );
+};
+#endif

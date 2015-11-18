@@ -1,0 +1,55 @@
+(i)
+	commandline input is time ./buffer 50 55 8000 30 10
+
+	NOBUSY WITH O2						*			NOBUSY WITHOUT O2
+		total: 1760220000				*				total: 1760220000
+										*
+		real	0m3.352s				*				real	0m3.475s
+		user	0m3.336s				*				user	0m3.449s
+		sys		0m0.028s				*				sys		0m0.036s
+										*
+	BUSY WITH O2						*			BUSY WITHOUT O2
+		total: 1760220000				*				total: 1760220000
+										*
+		real	0m2.781s				*				real	0m3.004s
+		user	0m2.765s				*				user	0m2.990s
+		sys		0m0.020s				*				sys		0m0.020s
+	the user time of nobusy waiting program is longer than user time of busy
+	waiting program
+
+(ii)
+	the program using busy wait is quicker than the program using nobusy wait
+	the program with optimization is quicker than the program without optimization
+
+(iii)
+	busy waiting is quicker than nobusy waiting
+	since the busy waiting does not follow the rule of FIFO which 
+	means the busy waiting does not need to wait on the barging lock
+
+(iv)
+	command line input is time ./buffer 50 55 8000 30 10
+
+	NOBUSY WITH MULTI					*			NOBUSY WITHOUT MULTI
+		total: 1760220000				*				total: 1760220000
+										*	
+		real	0m22.133s				*				real	0m2.996s
+		user	1m28.415s				*				user	0m2.984s
+		sys		0m0.184s				*				sys		0m0.012s
+										*
+	BUSY WITH MULTI						*			BUSY WITHOUT MULTI
+		total: 1760220000				*				total: 1760220000
+										*
+		real	0m18.777s				*				real	0m2.337s
+		user	1m14.891s				*				user	0m2.321s
+		sys		0m0.164s				*				sys		0m0.016s
+
+(v)
+	multiprocessor is always slower than uniprocessor no matter the program is using busy waiting or nobusy waiting
+
+(vi)
+	For multiprocessor, when many tasks was created, it will reduce the performance of the program.
+	since tasks will spend a lot of time on contention on accessing the processor.
+	For uniprocessor, tasks will not spend a lot of time on accessing the processor
+	since there is only one processor. And there should be a spcific way for a uniprocessor
+	to arrage the tasks.
+	So uniprocessor will be faster.

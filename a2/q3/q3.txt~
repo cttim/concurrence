@@ -1,0 +1,55 @@
+q3 document
+
+
+(a)
+compile without -multi
+================
+shared:13676832
+shared:14108579
+shared:14007848
+shared:13947125
+shared:15908224
+shared:15879196
+shared:16079245
+shared:13979469
+shared:16202375
+shared:14195199
+
+
+compile with -multi
+================
+shared:9983036
+shared:9995097
+shared:10039387
+shared:13341223
+shared:12567765
+shared:12656977
+shared:12834937
+shared:12206360
+shared:12757414
+shared:13673181
+shared:12023428
+
+
+(b)
+No. Not each version need to produce the same result
+
+(c)
+the minimum value is 2
+
+(d)
+The difference of size of result is because of the context switch and how the program is translated into assembly
+
+Since multiprocess will have more context switch than single process. Thats why the size of multiprocessor is smaller 
+
+Let A be task 1 and B be task 2
+consider two situation
+when A runs line1-2 but at line3, there is a  switch to B
+we allow B to iterate and increment shared variable before very last iteration where a context switch occurs.
+At that point i = 9999999
+Then context switch to A
+i = 9999999 and shared = 1
+Then A run until finish, and since 1 is 9999999 we can increment shared to 2 and the program ends
+
+
+	

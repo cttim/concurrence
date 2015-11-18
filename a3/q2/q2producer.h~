@@ -1,0 +1,14 @@
+#ifndef Q2PRODUCER_H
+#define Q2PRODUCER_H
+#include <uC++.h>
+#include "q2boundedBuffer.h"
+
+_Task Producer{
+	BoundedBuffer<int> &b;
+	const int p;
+	const int d;
+	void main();
+public:
+	Producer(BoundedBuffer<int> &buffer, const int Producer, const int Delay);
+};
+#endif

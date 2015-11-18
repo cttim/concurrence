@@ -1,0 +1,1 @@
+Because there are two handlers in this program. If you only use fix routine, when an exception raised, you won't be able to decide which fix routine you need to pass. As a result, you may need to use a global variable or functor.

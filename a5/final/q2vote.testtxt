@@ -1,0 +1,318 @@
+=================================================================================================
+
+test cases
+-------------------------------------------------------------------------------------------------
+error cases:
+	./vote 3 4 5 6								//wrong num of command-line input
+	./vote 6 2 									//group num can not be even
+	./vote 3 7 									//group num bigger than voter num
+	./vote -1									//invalid input
+	./vote 1 -1									//invalid input
+	./vote 1 -1 -1								//invalid input
+	./vote a 1									//invalid input
+	./vote ttt aaa								//invalid input
+-------------------------------------------------------------------------------------------------
+valid cases:
+	./vote										//test default setting program
+	./vote 3									//test default setting program
+	./vote 3 1									//test 3 voters and group capacity is 1
+	./vote 6 3									//test 6 voters and group capacity is 3
+	./vote 10 5									//test 10 voters and group capacity is 5
+	./vote 100 5								//test big case
+	./vote 200 5								//test big case
+	./vote 9 3 2000 							//test seed
+	./vote 9 3 3000 							//test seed
+=================================================================================================
+
+start test
+-------------------------------------------------------------------------------------------------
+test error cases
+any type of tallyvote should print a usage message
+
+	./vote 3 4 5 6								//wrong num of command-line input
+	Usage: ./vote Voters (>0 & V mod G = 0, default 6) Group (>0 & odd, defalut 3) Seed (> 0)
+	test passed!
+
+	./vote 6 2								//wrong num of command-line input
+	Usage: ./vote Voters (>0 & V mod G = 0, default 6) Group (>0 & odd, defalut 3) Seed (> 0)
+	test passed!
+
+	./vote 3 7								//wrong num of command-line input
+	Usage: ./vote Voters (>0 & V mod G = 0, default 6) Group (>0 & odd, defalut 3) Seed (> 0)
+	test passed!
+
+	./vote -1									//invalid input
+	Usage: ./vote Voters (>0 & V mod G = 0, default 6) Group (>0 & odd, defalut 3) Seed (> 0)
+	test passed!
+
+	./vote 1 -1									//invalid input
+	Usage: ./vote Voters (>0 & V mod G = 0, default 6) Group (>0 & odd, defalut 3) Seed (> 0)
+	test passed!
+
+	./vote 1 -1 -1								//invalid input
+	Usage: ./vote Voters (>0 & V mod G = 0, default 6) Group (>0 & odd, defalut 3) Seed (> 0)
+	test passed!
+
+	./vote a 1									//invalid input
+	Usage: ./vote Voters (>0 & V mod G = 0, default 6) Group (>0 & odd, defalut 3) Seed (> 0)
+	test passed!
+
+	./vote ttt aaa								//invalid input 
+	Usage: ./vote Voters (>0 & V mod G = 0, default 6) Group (>0 & odd, defalut 3) Seed (> 0)
+	test passed!
+
+all error cases passed!
+-------------------------------------------------------------------------------------------------
+test valid cases
+	
+	test for TYPE=EXT
+
+	make TYPE=EXT
+
+	./vote
+
+	Voter0	Voter1	Voter2	Voter3	Voter4	Voter5	
+	======= ======= ======= ======= ======= ======= 
+	S	S	S	S			
+				V 1			
+		V 1		B 1	S	S	
+	V 0	B 2					
+	C						
+	F 1	... 	... 	... 	... 	... 	
+		U 1					
+	... 	F 1	... 	... 	... 	... 	
+				U 0			
+	... 	... 	... 	F 1	... 	... 	
+						V 1	
+					V 0	B 1	
+			V 0		B 2		
+			C				
+	... 	... 	F 0	... 	... 	... 	
+					U 1		
+	... 	... 	... 	... 	F 0	... 	
+						U 0	
+	... 	... 	... 	... 	... 	F 0	
+	=====================
+	All tours statrted
+
+	test passed!
+	#############################################################################################
+
+	./vote 3
+
+	Voter0	Voter1	Voter2	
+	======= ======= ======= 
+	S	S	S	
+		V 0		
+	V 1	B 1		
+	B 2		V 1	
+			C	
+	... 	... 	F 1	
+	U 1			
+	F 1	... 	... 	
+		U 0		
+	... 	F 1	... 	
+	=====================
+	All tours statrted
+
+	test passed!
+	#############################################################################################
+
+	./vote 3 1
+
+	Voter0	Voter1	Voter2	
+	======= ======= ======= 
+	S	S	S	
+		V 0		
+		C		
+	... 	F 0	... 	
+	V 1			
+	C			
+	F 1	... 	... 	
+			V 1	
+			C	
+	... 	... 	F 1	
+	=====================
+	All tours statrted
+
+	test passed!
+	#############################################################################################
+
+	./vote 6 3
+
+	Voter0	Voter1	Voter2	Voter3	Voter4	Voter5	
+	======= ======= ======= ======= ======= ======= 
+	S	S	S	S			
+				V 1			
+		V 1		B 1	S	S	
+	V 0	B 2					
+	C						
+	F 1	... 	... 	... 	... 	... 	
+		U 1					
+	... 	F 1	... 	... 	... 	... 	
+				U 0			
+	... 	... 	... 	F 1	... 	... 	
+						V 1	
+					V 0	B 1	
+			V 0		B 2		
+			C				
+	... 	... 	F 0	... 	... 	... 	
+					U 1		
+	... 	... 	... 	... 	F 0	... 	
+						U 0	
+	... 	... 	... 	... 	... 	F 0	
+	=====================
+	All tours statrted
+
+	test passed!
+	#############################################################################################
+
+	./vote 10 5
+
+	Voter0	Voter1	Voter2	Voter3	Voter4	Voter5	Voter6	Voter7	Voter8	Voter9	
+	======= ======= ======= ======= ======= ======= ======= ======= ======= ======= 
+	S	S	S	S							
+				V 1							
+		V 0		B 1	S	S	S	S	S	S	
+	V 0	B 2									
+	B 3					V 0					
+						B 4				V 1	
+										C	
+	... 	... 	... 	... 	... 	... 	... 	... 	... 	F 0	
+						U 3					
+	... 	... 	... 	... 	... 	F 0	... 	... 	... 	... 	
+	U 2										
+	F 0	... 	... 	... 	... 	... 	... 	... 	... 	... 	
+		U 1									
+	... 	F 0	... 	... 	... 	... 	... 	... 	... 	... 	
+				U 0							
+	... 	... 	... 	F 0	... 	... 	... 	... 	... 	... 	
+							V 0				
+							B 1		V 0		
+								V 0	B 2		
+					V 1			B 3			
+			V 1		B 4						
+			C								
+	... 	... 	F 0	... 	... 	... 	... 	... 	... 	... 	
+					U 3						
+	... 	... 	... 	... 	F 0	... 	... 	... 	... 	... 	
+								U 2			
+	... 	... 	... 	... 	... 	... 	... 	F 0	... 	... 	
+									U 1		
+	... 	... 	... 	... 	... 	... 	... 	... 	F 0	... 	
+							U 0				
+	... 	... 	... 	... 	... 	... 	F 0	... 	... 	... 	
+	=====================
+	All tours statrted
+
+	test passed!
+	#############################################################################################
+
+	./vote 100 5
+
+	too large to display
+
+	test passed!
+	#############################################################################################
+
+	./vote 200 5
+
+	too large to display
+
+	test passed!
+	#############################################################################################
+
+	./vote 9 3 2000
+
+	Voter0	Voter1	Voter2	Voter3	Voter4	Voter5	Voter6	Voter7	Voter8	
+	======= ======= ======= ======= ======= ======= ======= ======= ======= 
+	S	S	S	S	S	S	S	S	S	
+							V 0			
+							B 1	V 0		
+	V 1							B 2		
+	C									
+	F 0	... 	... 	... 	... 	... 	... 	... 	... 	
+								U 1		
+	... 	... 	... 	... 	... 	... 	... 	F 0	... 	
+							U 0			
+	... 	... 	... 	... 	... 	... 	F 0	... 	... 	
+				V 1						
+				B 1		V 0				
+		V 0				B 2				
+		C								
+	... 	F 0	... 	... 	... 	... 	... 	... 	... 	
+						U 1				
+	... 	... 	... 	... 	... 	F 0	... 	... 	... 	
+				U 0						
+	... 	... 	... 	F 0	... 	... 	... 	... 	... 	
+			V 0							
+			B 1						V 0	
+					V 0				B 2	
+					C					
+	... 	... 	... 	... 	F 0	... 	... 	... 	... 	
+									U 1	
+	... 	... 	... 	... 	... 	... 	... 	... 	F 0	
+			U 0							
+	... 	... 	F 0	... 	... 	... 	... 	... 	... 	
+	=====================
+	All tours statrted
+
+	test passed!
+	#############################################################################################
+
+	./vote 9 3 3000
+
+	Voter0	Voter1	Voter2	Voter3	Voter4	Voter5	Voter6	Voter7	Voter8	
+	======= ======= ======= ======= ======= ======= ======= ======= ======= 
+	S	S	S	S	S	S	S	S	S	
+							V 1			
+							B 1		V 1	
+						V 1			B 2	
+						C				
+	... 	... 	... 	... 	... 	F 1	... 	... 	... 	
+									U 1	
+	... 	... 	... 	... 	... 	... 	... 	... 	F 1	
+							U 0			
+	... 	... 	... 	... 	... 	... 	F 1	... 	... 	
+			V 1							
+			B 1					V 1		
+				V 1				B 2		
+				C						
+	... 	... 	... 	F 1	... 	... 	... 	... 	... 	
+								U 1		
+	... 	... 	... 	... 	... 	... 	... 	F 1	... 	
+			U 0							
+	... 	... 	F 1	... 	... 	... 	... 	... 	... 	
+					V 0					
+	V 1				B 1					
+	B 2	V 0								
+		C								
+	... 	F 0	... 	... 	... 	... 	... 	... 	... 	
+	U 1									
+	F 0	... 	... 	... 	... 	... 	... 	... 	... 	
+					U 0					
+	... 	... 	... 	... 	F 0	... 	... 	... 	... 	
+	=====================
+	All tours statrted
+
+	test passed!
+	#############################################################################################
+
+	test for TYPE=INT
+	test for TYPE=INTB
+	test for TYPE=AUTO
+	test for TYPE=TASK
+
+	use the same testsuit to test different type
+	use script to test seed from 2000 to 2500
+
+all test passed!
+=================================================================================================
+
+The end of the testfile
+
+
+
+
+
+

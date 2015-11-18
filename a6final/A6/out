@@ -1,0 +1,64 @@
+Parent	WATOff	Names	Truck	Plant	Stud0	Stud1	Mach0	Mach1	Mach2	Cour0	Cour1	Cour2	
+=======	=======	=======	=======	=======	=======	=======	=======	=======	=======	=======	=======	=======	
+start bottle
+finish ctr of bottle
+end bottle
+S	S	S		S			S1			S	S	S	
+	C0,5	R0			S2,4	S0,6		S1	S1				
+	W	R1								t0,5			
+	C1,5	R2											
+	W	N0,0			V0						t1,5		
+		N1,1	S	P		V1							
+			P										
+			d3				r						
+			U3,20				R						
+			d3					r					
+			U3,20					R					
+D1,2			d3	G17					r				
+			U3,20	P					R				
+			P16										
+			d3,16				r						
+			U3,3				R						
+			d3					r					
+			U3,20					R					
+			d3	G17					r				
+			U3,20	P					R				
+			P16										
+			d3,16				r						
+			D3,13				R						
+D0,3			d3,13					r					
+			U3,7	G19				R					
+			P19	P									
+			d3,19				r						
+			D3,19				R						
+			d3,19					r					
+			D3,12					R					
+			d3,12	G12					r				
+D0,1			U3,8	P					R				
+			P12										
+			d3,12				r						
+			D3,12				R						
+			d3,12					r					
+			D3,12					R					
+			d3,12	G13					r				
+			U3,2	P					R				
+			P19										
+			d3,19				r						
+			D3,19				R						
+D0,2			d3,19					r		T0,5			
+			D3,19					R					
+			d3,19	G10					r				
+			D3,17		B4		B2,5		R				
+			P27	P	B3		B2,4						
+			d3,27				r						
+			D3,25				R						
+			d3,25					r					
+			D3,25					R					
+			d3,25	G7					r				
+			D3,25		B2		B2,5		R				
+			P32	P	B1		B2,4						
+			d3,32				r						
+			U3,2				R						
+D1,2			d3,32		B0		B2,3	r					
+			D3,32					R					
+			d3,32	G10					r				

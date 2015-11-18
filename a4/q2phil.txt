@@ -1,0 +1,3 @@
+external scheduling means schedule the tasks outside the monitor and is accomplished with the accept statement. There are two indenpendent conditions (left fork and right fork) for this problem.
+The externally scheduling does not know when both forks are free. Further more, external scheduling
+monitor can only unblocking task which is control by the external function call. It is not possible to implement.

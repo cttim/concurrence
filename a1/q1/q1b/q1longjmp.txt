@@ -1,0 +1,7 @@
+use 1000 1000 1000000
+for the original
+
+for the loongjmp version
+13.819u 0.321s 0:14.14 99.9%	0+0k 0+0io 0pf+0w
+
+

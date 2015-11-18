@@ -1,0 +1,44 @@
+(i)
+	command line input is time ./mergesort -t 100000000 0
+	real	0m9.068s
+	user	0m8.856s
+	sys		0m0.245s
+
+	command line input is time ./mergesort -t 100000000 1
+	real	0m5.296s
+	user	0m9.504s
+	sys		0m0.265s
+
+	command line input is time ./mergesort -t 100000000 2
+	real	0m4.031s
+	user	0m11.291s
+	sys		0m0.588s
+
+	command line input is time ./mergesort -t 100000000 3
+	real	0m3.171s
+	user	0m13.562s
+	sys		0m0.720s
+
+	command line input is time ./mergesort -t 100000000 4
+	real	0m3.135s
+	user	0m19.522s
+	sys		0m0.906s
+
+	command line input is time ./mergesort -t 100000000 5
+	real	0m3.625s
+	user	1m49.573s
+	sys		0m1.451s
+
+	command line input is time ./mergesort -t 100000000 6
+	real	0m13.276s
+	user	12m58.763s
+	sys		0m14.521s
+(ii)
+	when depth is equal or smaller than 4,  the program will be more efficient if depth is bigger
+	when depth is bigger than 4, the program will be inefficient as long as depth getting bigger
+(iii)
+	for this mergesort program, using multiple tasks will be more efficient. However, too many tasks will also leads to low efficient.
+	There are two reasons:
+		1) create a new task need a certain amount of time
+		2) the parent task need to wait its children tasks finished first. The more tasks you created the longer you need to wait
+

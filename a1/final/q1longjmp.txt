@@ -1,0 +1,34 @@
+use 5000 5000 10000 to test
+
+for the original
+real	1m20.120s
+user	1m19.789s
+sys	0m0.218s
+
+for the loongjmp version
+real	0m0.268s
+user	0m0.261s
+sys	0m0.003s
+
+the reason why longjmp version is quicker:
+	catch/throw is aware of the objects on the stack and knows how to call the destructor 
+	for objects allocated on the stack but longjmp/setjmp does nothing.
+
+after compiled with option O2
+
+for the original version
+real	0m28.834s
+user	0m28.699s
+sys	0m0.074s
+
+for the longjmp version
+real	0m0.136s
+user	0m0.134s
+sys	0m0.002s
+
+after compiled with option O2, the time is only half of before.
+
+O2 option means second level of optimization which performs all other supported optimizations within the given
+architechure that do not involve a space-speed trade-off, a balance between the two objects. That is why the program
+will run much quicker.
+
